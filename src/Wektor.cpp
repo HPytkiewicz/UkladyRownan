@@ -3,7 +3,7 @@
 #include <iomanip>
 
 Wektor::Wektor(){
-  for(int i=0; i<ROZMIAR, i++)
+  for(int i=0; i<ROZMIAR; i++)
     (*this)[i]=0;
 }
 
@@ -20,7 +20,7 @@ Wektor::Wektor(double *tab){
 
 Wektor::Wektor(const Wektor &Wektor2){
   for(int i=0;i<ROZMIAR;i++)
-    (*this)[i]=Wektor2[i]
+    (*this)[i]=Wektor2[i];
 }
 
 
@@ -54,12 +54,12 @@ const Wektor Wektor::operator * (double const &a) const{
 
 double Wektor::dlugosc() const{
 
-  return sqrt(pow((*this)[0],2)+(*this)[1],2+(*this)[2],2);
+  return sqrt(pow((*this)[0],2)+pow((*this)[1],2)+pow((*this)[2],2));
 }
 
 bool Wektor::operator == (const Wektor &Wektor2) const{
 
-  for(int 1=0; i<ROZMIAR;i++){
+  for(int i=0; i<ROZMIAR;i++){
     if((*this)[i]!=Wektor2[i])
       return false;
   }
@@ -72,7 +72,7 @@ bool Wektor::operator != (const Wektor &Wektor2) const{
 }
 
 const Wektor Wektor::Swap (int Wektor1, int Wektor2) const{
-  Wektor pomoc{*this);
+  Wektor pomoc(*this);
   
  if (Wektor1 < 0 || Wektor1 >= ROZMIAR || Wektor2 < 0 || Wektor2 >= ROZMIAR)
   {
@@ -93,12 +93,12 @@ Wektor operator*(double a, const Wektor & Wektor2){
 
 std::ostream& operator << (std::ostream &strm, const Wektor &wektor){
 
-  for(int i=0, i<ROZMIAR; i++)
+  for(int i=0;i<ROZMIAR; i++)
     strm << std::setw(SKIP) << wektor[i];
   return strm;
 }
 
-std::istream& operator >> (std::istream &strm, const Wektor &wektor){
+std::istream& operator >> (std::istream &strm, Wektor &wektor){
 
   for(int i=0;i<ROZMIAR;i++){
     double pomoc;
