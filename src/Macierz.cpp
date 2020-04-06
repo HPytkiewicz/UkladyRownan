@@ -1,6 +1,6 @@
 #include "Macierz.hh"
 #include <iomanip>
-#include <stdio.h>
+#include <iostream>
 
 Macierz::Macierz(){
  for (int j = 0; j < ROZMIAR; j++)
@@ -46,6 +46,26 @@ const Macierz Macierz::operator *(double a) const
     pomoc[i] = (*this)[i] * a;
   }
   return pomoc;
+}
+
+const Wektor  & Macierz::operator[] (int index) const
+{
+  if (index < 0 || index >= ROZMIAR) 
+  {
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
+    exit(1);
+  }
+  return this->tab[index];
+}
+
+Wektor & Macierz::operator[] (int index)
+{
+  if (index < 0 || index >= ROZMIAR) 
+  {
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
+    exit(1);
+  }
+  return this->tab[index];
 }
 
 bool Macierz::operator == (const Macierz & macierz2) const

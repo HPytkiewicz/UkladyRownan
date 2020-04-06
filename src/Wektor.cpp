@@ -90,14 +90,14 @@ Wektor operator*(double a, const Wektor & Wektor2){
 
   return Wektor2*a;
 }
-
+/*
 std::ostream& operator << (std::ostream &strm, const Wektor &wektor){
 
   for(int i=0;i<ROZMIAR; i++)
     strm << std::setw(SKIP) << wektor[i];
   return strm;
 }
-
+*/
 std::istream& operator >> (std::istream &strm, Wektor &wektor){
 
   for(int i=0;i<ROZMIAR;i++){
