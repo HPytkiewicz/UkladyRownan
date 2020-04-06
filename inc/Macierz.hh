@@ -2,6 +2,7 @@
 #define MACIERZ_HH
 
 #include "rozmiar.h"
+#include "Wektor.hh"
 #include <iostream>
 
 class Macierz {
@@ -9,7 +10,7 @@ class Macierz {
   double dopelnienie(int x, int y) const;
  public:
   Macierz();
-  Macierz(wektor1, wektor2, wektor3);
+  Macierz(Wektor wektor1,Wektor wektor2,Wektor wektor3);
   Macierz(const Macierz &macierz2);
 
   const Wektor  & operator[] (int index) const;

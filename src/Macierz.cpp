@@ -1,5 +1,6 @@
 #include "Macierz.hh"
 #include <iomanip>
+#include <stdio.h>
 
 Macierz::Macierz(){
  for (int j = 0; j < ROZMIAR; j++)
@@ -20,28 +21,8 @@ Macierz::Macierz(Wektor wektor1, Wektor wektor2, Wektor wektor3)
   (*this)[2] = wektor3;
 }
 
-const Wektor  & Macierz::operator[] (int index) const
-{
-  if (index < 0 || index >= ROZMIAR) 
-  {
-    std::cerr << ERROROUTOFBOUNDS << std::endl;
-    exit(1);
-  }
-  return this->tab[index];
-}
-
-Wektor & Macierz::operator[] (int index)
-{
-  if (index < 0 || index >= ROZMIAR) 
-  {
-    std::cerr << ERROROUTOFBOUNDS << std::endl;
-    exit(1);
-  }
-  return this->tab[index];
-}
-
 const Macierz Macierz::operator +(const Macierz & macierz2) const{
-  MAcierz pomoc;
+  Macierz pomoc;
   for(int i =0; i< ROZMIAR; i++)
     pomoc[i]=(*this)[i] + macierz2[i];
   return pomoc;
@@ -52,7 +33,7 @@ const Macierz Macierz::operator -(const Macierz & macierz2) const
   Macierz pomoc;
   for (int i = 0; i < ROZMIAR; i++)    
   {
-    temp[i] = (*this)[i] - macierz2[i];
+    pomoc[i] = (*this)[i] - macierz2[i];
   }
   return pomoc;
 }
@@ -120,7 +101,7 @@ std::istream& operator >> (std::istream &strm, Macierz &macierz)
   return strm;
 }
 
-
+/*
 std::ostream& operator << (std::ostream &strm, const Macierz &macierz)
 {
   for (int i = 0; i < ROZMIAR; i++)
@@ -129,11 +110,11 @@ std::ostream& operator << (std::ostream &strm, const Macierz &macierz)
      {
        strm << std::setw(SKIP) << macierz.transponuj()[i][j];
      }
-   Strm  << std::endl;
+   strm  << std::endl;
   }
-  return Strm;
+  return strm;
 }
-
+*/
 /*
  *  Tutaj nalezy zdefiniowac odpowiednie metody
  *  klasy Macierz, ktore zawieraja wiecej kodu
