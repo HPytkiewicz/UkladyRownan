@@ -68,6 +68,7 @@ bool Wektor::operator == (const Wektor &Wektor2) const{
 
 bool Wektor::operator != (const Wektor &Wektor2) const{
 
+
   return !((*this)==Wektor2);
 }
 

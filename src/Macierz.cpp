@@ -1,4 +1,5 @@
 #include "Macierz.hh"
+
 #include <iomanip>
 #include <iostream>
 
@@ -21,33 +22,6 @@ Macierz::Macierz(Wektor wektor1, Wektor wektor2, Wektor wektor3)
   (*this)[2] = wektor3;
 }
 
-const Macierz Macierz::operator +(const Macierz & macierz2) const{
-  Macierz pomoc;
-  for(int i =0; i< ROZMIAR; i++)
-    pomoc[i]=(*this)[i] + macierz2[i];
-  return pomoc;
-}
-
-const Macierz Macierz::operator -(const Macierz & macierz2) const
-{
-  Macierz pomoc;
-  for (int i = 0; i < ROZMIAR; i++)    
-  {
-    pomoc[i] = (*this)[i] - macierz2[i];
-  }
-  return pomoc;
-}
-
-const Macierz Macierz::operator *(double a) const 
-{
-  Macierz pomoc;
-  for (int i = 0; i < ROZMIAR; i++)    
-  {
-    pomoc[i] = (*this)[i] * a;
-  }
-  return pomoc;
-}
-
 const Wektor  & Macierz::operator[] (int index) const
 {
   if (index < 0 || index >= ROZMIAR) 
@@ -68,6 +42,34 @@ Wektor & Macierz::operator[] (int index)
   return this->tab[index];
 }
 
+
+Macierz Macierz::operator +(const Macierz & macierz2) const{
+  Macierz pomoc;
+  for(int i =0; i< ROZMIAR; i++)
+    pomoc[i]=(*this)[i] + macierz2[i];
+  return pomoc;
+}
+
+Macierz Macierz::operator -(const Macierz & macierz2) const
+{
+  Macierz pomoc;
+  for (int i = 0; i < ROZMIAR; i++)    
+  {
+    pomoc[i] = (*this)[i] - macierz2[i];
+  }
+  return pomoc;
+}
+
+Macierz Macierz::operator *(double a) const 
+{
+  Macierz pomoc;
+  for (int i = 0; i < ROZMIAR; i++)    
+  {
+    pomoc[i] = (*this)[i] * a;
+  }
+  return pomoc;
+}
+
 bool Macierz::operator == (const Macierz & macierz2) const
 {
   for (int i = 0; i < ROZMIAR; i++)    
@@ -83,7 +85,7 @@ bool Macierz::operator != (const Macierz & macierz2) const
   return !(*this==macierz2);
 }
   
-const Macierz Macierz::transponuj() const
+Macierz Macierz::transponuj() const
 {
   Macierz wynikowa;
   for (int j = 0; j < ROZMIAR; j++)
@@ -93,7 +95,7 @@ const Macierz Macierz::transponuj() const
   return wynikowa;
 }
 
-const Wektor Macierz::operator *(const Wektor & wektor) const
+ Wektor Macierz::operator *(const Wektor & Wektor) const
 {
   Wektor wynik;
   for (int i = 0; i < ROZMIAR; i++)    
@@ -106,7 +108,7 @@ const Wektor Macierz::operator *(const Wektor & wektor) const
   return wynik;
 }
 
-const Macierz operator *(double a, const Macierz macierz)
+Macierz operator *(double a, const Macierz macierz)
 {
   return macierz*a;
 }
@@ -121,7 +123,7 @@ std::istream& operator >> (std::istream &strm, Macierz &macierz)
   return strm;
 }
 
-/*
+
 std::ostream& operator << (std::ostream &strm, const Macierz &macierz)
 {
   for (int i = 0; i < ROZMIAR; i++)
@@ -134,7 +136,7 @@ std::ostream& operator << (std::ostream &strm, const Macierz &macierz)
   }
   return strm;
 }
-*/
+
 /*
  *  Tutaj nalezy zdefiniowac odpowiednie metody
  *  klasy Macierz, ktore zawieraja wiecej kodu

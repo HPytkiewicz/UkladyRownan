@@ -17,7 +17,7 @@ using namespace std;
 
 int main()
 {
-  UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
+  //  UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
 
   
   cout << endl << " Start programu " << endl << endl;

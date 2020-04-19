@@ -16,23 +16,23 @@ class Macierz {
   const Wektor  & operator[] (int index) const;
   Wektor & operator[] (int index);
 
-  const Macierz operator +(const Macierz & macierz) const;
-  const Macierz operator -(const Macierz & macierz) const;
-  const Macierz operator *(const Macierz & macierz) const;
+  Macierz operator +(const Macierz & macierz) const;
+  Macierz operator -(const Macierz & macierz) const;
+  Macierz operator *(const Macierz & macierz) const;
 
-  const Macierz operator *(double a) const;
-  const Wektor operator *(const Wektor & Wektor) const;
+  Macierz operator *(double a) const;
+  Wektor operator *(const Wektor & Wektor) const;
 
   bool operator == (const Macierz & Wektor2) const;
   bool operator != (const Macierz & Wektor2) const;
 
-  const Macierz transponuj() const;
-  const Macierz odwroc() const;
+  Macierz transponuj() const;
+  Macierz odwroc() const;
   
 };
 
 
-const Macierz operator * (double a, const Macierz macierz);
+Macierz operator * (double a, const Macierz macierz);
 
 /*
  * To przeciazenie trzeba opisac. Co ono robi. Jaki format
