@@ -55,7 +55,7 @@ Wektor UkladRownanLiniowych::oblicz(SposobLiczenia sposob) const{
     wynik=macierzpom * wektor;
     return wynik;
   }
-  std::cerr << ERROROUTOFENUM << std::endl;
+  std::cerr << ERRORNOOFENUM << std::endl;
   exit(0);
 }
 

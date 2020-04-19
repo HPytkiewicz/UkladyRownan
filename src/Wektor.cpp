@@ -7,10 +7,10 @@ Wektor::Wektor(){
     (*this)[i]=0;
 }
 
-Wektor::Wektor(double xx, double yy, double zz){
-  (*this)[0]=xx;
-  (*this)[1]=yy;
-  (*this)[2]=zz;
+Wektor::Wektor(double x, double y, double z){
+  (*this)[0]=x;
+  (*this)[1]=y;
+  (*this)[2]=z;
 }
 
 Wektor::Wektor(double *tab){
@@ -23,15 +23,31 @@ Wektor::Wektor(const Wektor &Wektor2){
     (*this)[i]=Wektor2[i];
 }
 
+const double & Wektor::operator[] (int index) const{
+  
+  if(index <0 || index >= ROZMIAR){
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
+    exit(1);
+  }
+  return this->tab[index];
+}
 
-const Wektor Wektor::operator + (Wektor const &wektor) const{
+double & Wektor::operator[] (int index){
+  if(index < 0 || index >= ROZMIAR){
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
+    exit(1);
+  }
+  return this->tab[index];
+}
+
+Wektor Wektor::operator + (Wektor const &wektor) const{
   Wektor wynik;
   for(int i=0;i<ROZMIAR;i++)
     wynik[i]=(*this)[i] + wektor[i];
   return wynik;
 }
 
-const Wektor Wektor::operator - (Wektor const &wektor) const{
+Wektor Wektor::operator - (Wektor const &wektor) const{
   Wektor wynik;
   for(int i=0;i<ROZMIAR;i++)
     wynik[i]=(*this)[i] - wektor[i];
@@ -45,22 +61,36 @@ double Wektor::operator * (Wektor const &wektor) const{
   return wynik;
 }
 
-const Wektor Wektor::operator * (double const &a) const{
+Wektor Wektor::operator * (double const &a) const{
   Wektor wynik;
   for(int i=0;i<ROZMIAR;i++)
     wynik[i]=(*this)[i]*a;
   return wynik;
 }
 
-double Wektor::dlugosc() const{
+Wektor Wektor::operator / (double const &a) const{
+  Wektor wynik;
+  if(a!=0){
+  for(int i=0;i<ROZMIAR;i++)
+    wynik[i]=(*this)[i]/a;
+  return wynik;
+  }else
+    exit(1);
+}
 
-  return sqrt(pow((*this)[0],2)+pow((*this)[1],2)+pow((*this)[2],2));
+
+double Wektor::dlugosc() const{
+  double wynik;
+  for(int i=0;i<ROZMIAR; i++){
+    wynik+=(*this)[i]*(*this)[i];
+  }
+  return sqrt(wynik);
 }
 
 bool Wektor::operator == (const Wektor &Wektor2) const{
 
   for(int i=0; i<ROZMIAR;i++){
-    if((*this)[i]!=Wektor2[i])
+    if(abs((*this)[i]-Wektor2[i])>0.0001)
       return false;
   }
   return true;
@@ -72,33 +102,33 @@ bool Wektor::operator != (const Wektor &Wektor2) const{
   return !((*this)==Wektor2);
 }
 
-const Wektor Wektor::Swap (int Wektor1, int Wektor2) const{
-  Wektor pomoc(*this);
+Wektor Wektor::Swap (int Wektor1, int Wektor2) const{
+  Wektor pomocniczy(*this);
   
  if (Wektor1 < 0 || Wektor1 >= ROZMIAR || Wektor2 < 0 || Wektor2 >= ROZMIAR)
   {
-    std::cerr << "poza zakresem" << std::endl;
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
     exit(1);
   }
  
-  double temp(pomoc[Wektor1]);
-  pomoc[Wektor1] = pomoc[Wektor2];
-  pomoc[Wektor2] = temp;
-  return pomoc; 
+  double temp(pomocniczy[Wektor1]);
+  pomocniczy[Wektor1] = pomocniczy[Wektor2];
+  pomocniczy[Wektor2] = temp;
+  return pomocniczy; 
 }
 
 Wektor operator*(double a, const Wektor & Wektor2){
 
   return Wektor2*a;
 }
-/*
+
 std::ostream& operator << (std::ostream &strm, const Wektor &wektor){
 
   for(int i=0;i<ROZMIAR; i++)
     strm << std::setw(SKIP) << wektor[i];
   return strm;
 }
-*/
+
 std::istream& operator >> (std::istream &strm, Wektor &wektor){
 
   for(int i=0;i<ROZMIAR;i++){
@@ -108,9 +138,3 @@ std::istream& operator >> (std::istream &strm, Wektor &wektor){
   }
   return strm;
 }
-/*
- *  Tutaj nalezy zdefiniowac odpowiednie metody
- *  klasy Wektor, ktore zawieraja wiecej kodu
- *  niz dwie linijki.
- *  Mniejsze metody mozna definiwac w ciele klasy.
- */

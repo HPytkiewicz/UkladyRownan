@@ -5,6 +5,9 @@
 #include "Wektor.hh"
 #include <iostream>
 
+
+enum metodaWyznacznika {sarrus, laplace};
+
 class Macierz {
   Wektor tab[ROZMIAR];
   double dopelnienie(int x, int y) const;
@@ -21,14 +24,16 @@ class Macierz {
   Macierz operator *(const Macierz & macierz) const;
 
   Macierz operator *(double a) const;
-  Wektor operator *(const Wektor & Wektor) const;
+  Wektor operator *(const Wektor & wektor) const;
 
-  bool operator == (const Macierz & Wektor2) const;
-  bool operator != (const Macierz & Wektor2) const;
+  bool operator == (const Macierz & Macierz2) const;
+  bool operator != (const Macierz & Macierz2) const;
 
   Macierz transponuj() const;
   Macierz odwroc() const;
-  
+
+
+  double wyznacznik(metodaWyznacznika metoda = sarrus) const; 
 };
 
 

@@ -9,21 +9,19 @@ Macierz::Macierz(){
        this->tab[i][j] = 0;
 }
 
-Macierz::Macierz(const Macierz & macierz2)
-{
+Macierz::Macierz(const Macierz & macierz2){
   for (int i=0; i<ROZMIAR; i++)
   (*this)[i] = macierz2[i];
 }
 
-Macierz::Macierz(Wektor wektor1, Wektor wektor2, Wektor wektor3)
-{
+Macierz::Macierz(Wektor wektor1, Wektor wektor2, Wektor wektor3){
   (*this)[0] = wektor1;
   (*this)[1] = wektor2;
   (*this)[2] = wektor3;
 }
 
-const Wektor  & Macierz::operator[] (int index) const
-{
+const Wektor  & Macierz::operator[] (int index) const{
+
   if (index < 0 || index >= ROZMIAR) 
   {
     std::cerr << ERROROUTOFBOUNDS << std::endl;
@@ -32,8 +30,8 @@ const Wektor  & Macierz::operator[] (int index) const
   return this->tab[index];
 }
 
-Wektor & Macierz::operator[] (int index)
-{
+Wektor & Macierz::operator[] (int index){
+
   if (index < 0 || index >= ROZMIAR) 
   {
     std::cerr << ERROROUTOFBOUNDS << std::endl;
@@ -42,47 +40,46 @@ Wektor & Macierz::operator[] (int index)
   return this->tab[index];
 }
 
-
-Macierz Macierz::operator +(const Macierz & macierz2) const{
-  Macierz pomoc;
+Macierz Macierz::operator +(const Macierz & macierz) const{
+  Macierz pomocnicza;
   for(int i =0; i< ROZMIAR; i++)
-    pomoc[i]=(*this)[i] + macierz2[i];
-  return pomoc;
+    pomocnicza[i]=(*this)[i] + macierz[i];
+  return pomocnicza;
 }
 
-Macierz Macierz::operator -(const Macierz & macierz2) const
+Macierz Macierz::operator -(const Macierz & macierz) const
 {
-  Macierz pomoc;
+  Macierz pomocnicza;
   for (int i = 0; i < ROZMIAR; i++)    
   {
-    pomoc[i] = (*this)[i] - macierz2[i];
+    pomocnicza[i] = (*this)[i] - macierz[i];
   }
-  return pomoc;
+  return pomocnicza;
 }
 
 Macierz Macierz::operator *(double a) const 
 {
-  Macierz pomoc;
+  Macierz pomocnicza;
   for (int i = 0; i < ROZMIAR; i++)    
   {
-    pomoc[i] = (*this)[i] * a;
+    pomocnicza[i] = (*this)[i] * a;
   }
-  return pomoc;
+  return pomocnicza;
 }
 
-bool Macierz::operator == (const Macierz & macierz2) const
+bool Macierz::operator == (const Macierz & Macierz2) const
 {
   for (int i = 0; i < ROZMIAR; i++)    
   {
-    if ((*this)[i] != macierz2[i])
+    if ((*this)[i] != Macierz2[i])
       return false;
   }
   return true;
 }
 
-bool Macierz::operator != (const Macierz & macierz2) const
+bool Macierz::operator != (const Macierz & Macierz2) const
 {
-  return !(*this==macierz2);
+  return !(*this==Macierz2);
 }
   
 Macierz Macierz::transponuj() const
@@ -95,7 +92,30 @@ Macierz Macierz::transponuj() const
   return wynikowa;
 }
 
- Wektor Macierz::operator *(const Wektor & Wektor) const
+double Macierz::dopelnienie(int x, int y) const{
+  double pomoc;
+  if(x< 0 || x >= ROZMIAR || y<0 || y >= ROZMIAR){
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
+    exit(1);
+  }
+  pomoc= (*this)[(x+1)%ROZMIAR][(y+1)%ROZMIAR] * (*this)[(x+2)%ROZMIAR][(y+2)%ROZMIAR] - (*this)[(x+2)%ROZMIAR][(y+1)%ROZMIAR] * (*this)[(x+1)%ROZMIAR][(y+2)%ROZMIAR];
+  return pomoc;
+}
+
+Macierz Macierz::odwroc() const{
+  Macierz macierzpom;
+  double wyznacznik=(*this).wyznacznik(sarrus);
+  if(wyznacznik != 0){
+    for(int j=0; j<ROZMIAR; j++)
+      for(int i=0; i<ROZMIAR; i++)
+	macierzpom[i][j]=(*this).dopelnienie(i,j) / wyznacznik;
+  }else{
+    exit(0);
+  }
+  return macierzpom.transponuj();
+}
+
+ Wektor Macierz::operator *(const Wektor & wektor) const
 {
   Wektor wynik;
   for (int i = 0; i < ROZMIAR; i++)    
@@ -113,7 +133,29 @@ Macierz operator *(double a, const Macierz macierz)
   return macierz*a;
 }
 
-//************Funkcje: in/out************//
+
+double Macierz::wyznacznik(metodaWyznacznika metoda) const{
+
+  double pomoc=0;
+  switch (metoda){
+  case sarrus:
+    for(int i=0; i<ROZMIAR; i++)
+      pomoc += (*this)[i % ROZMIAR][0] * (*this)[(i+1) % ROZMIAR][1] * (*this)[(i+2) % ROZMIAR][2];
+    for(int i=0; i<ROZMIAR; i++)
+      pomoc -= (*this)[i % ROZMIAR][0] * (*this)[(i+2) % ROZMIAR][1] * (*this)[(i+1) % ROZMIAR][2];
+    return pomoc;
+    
+  case laplace:
+    for(int i=0; i<ROZMIAR; i++)
+      pomoc+= (*this)[i][0] * ((*this).dopelnienie(i,0));
+    return pomoc;
+  }
+  std::cerr << ERRORNOENUM << std::endl;
+  exit(0);
+  
+}
+
+//Funkcje in/out
 std::istream& operator >> (std::istream &strm, Macierz &macierz)
 {
   for (int i = 0; i < ROZMIAR; i++)
