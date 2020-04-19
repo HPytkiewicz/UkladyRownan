@@ -41,7 +41,7 @@ Macierz operator * (double a, const Macierz macierz);
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-std::istream& operator >> (std::istream &Strm, Macierz &Mac);
+std::istream& operator >> (std::istream &strm, Macierz &macierz);
 
 /*
  * To przeciazenie trzeba opisac. Co ono robi. Jaki format
@@ -50,7 +50,7 @@ std::istream& operator >> (std::istream &Strm, Macierz &Mac);
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-std::ostream& operator << (std::ostream &Strm, const Macierz &Mac);
+std::ostream& operator << (std::ostream &strm, const Macierz &macierz);
 
 
 #endif
