@@ -19,23 +19,23 @@ using namespace std;
 
 int main()
 {
-  UkladRownanLiniowych   UklRown;
+  UkladRownanLiniowych UklRown;
   Wektor wynik;
   string nazwa;
-
   
   ifstream myfile;
+  
   std::cout << "Podaj nazwe pliku ktory chcesz otworzyc: " << std::endl;
   std::cin >> nazwa;
   myfile.open(nazwa);
   if(!myfile.is_open()){
-    std::cerr << "Niepoprawna nazwa pliku. " << endl;
+    std::cerr << ERRORNAME << endl;
     exit(0);
   }
   
   myfile >> UklRown;
   if(myfile.eof()){
-    std::cerr << "Error: Koniec pliku! " << endl;
+    std::cerr << ERROREOF << endl;
     exit(0);	  
   }
   myfile.close();
@@ -74,18 +74,4 @@ int main()
   std::cout << "Wektor bledu: Ax - b =  " << UklRown.pobierzMacierz()*wynik - UklRown.pobierzWektor() << std::endl;
   std::cout << "Dlugosc wektoru bledu: |Ax - b| = " << blad.dlugosc() << std::endl;
 
-  
-  /*   UkladRownanLiniowych   UklRown;   // To tylko przykladowe definicje zmiennej
-   Wektor wynik;
-   //   bool Errowynik;
-   std::cout << std::endl;
-   std::cin >> UklRown;
-   if(!std::cin.good()){
-     std::cerr<<ERRORLOAD<<std::endl;
-     exit(0);
-   }
-   std::cout<< UklRown << std::endl;
-   wynik = UklRown.oblicz(odwrotna);
-   std::cout << std::endl << wynik << std::endl;
-  */
 }
