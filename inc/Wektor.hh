@@ -27,7 +27,6 @@ class Wektor {
 
   bool operator == (const Wektor &Wektor2) const;
   bool operator != (const Wektor &Wektor2) const;
-  Wektor Swap(int Wektor1, int Wektor2) const;
 };
 
 Wektor operator * (double a, const Wektor &Wektor2);

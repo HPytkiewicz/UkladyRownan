@@ -19,12 +19,13 @@ using namespace std;
 
 int main()
 {
-  UkladRownanLiniowych UklRown;
-  Wektor wynik;
-  string nazwa;
+  UkladRownanLiniowych UklRown; // zmienna do przechowywania Ukladu rownan 
+  Wektor wynik; // zmienna do przechowywania wyniku
+  string nazwa; // zmienna do przechowywania nazwy pliku z ktorego czytamy
   
-  ifstream myfile;
-  
+  ifstream myfile; // strumien do czytania danych z pliku
+
+  /*************************Otwieranie pliku*****************************/
   std::cout << "Podaj nazwe pliku ktory chcesz otworzyc: " << std::endl;
   std::cin >> nazwa;
   myfile.open(nazwa);
@@ -33,12 +34,14 @@ int main()
     exit(0);
   }
   
-  myfile >> UklRown;
+  myfile >> UklRown; // Wczytanie danych z pliku
   if(myfile.eof()){
     std::cerr << ERROREOF << endl;
     exit(0);	  
   }
   myfile.close();
+  /*************************Zamkniecie pliku*****************************/
+
   
    if(!std::cin.good()){
      std::cerr<<ERRORLOAD<<std::endl;
@@ -46,7 +49,7 @@ int main()
    }
 
    std::cout << "Schematyczne przedstawienie ukladu rownan: " << std::endl;
-   std::cout << UklRown;
+   std::cout << UklRown; // wyswietlenie ukladu rownan
 
    
   std::cout << "Macierz transponowana ukladu rownan A^T: " << std::endl;
@@ -55,7 +58,7 @@ int main()
   std::cout << "Wektor wyrazow wolnych b: " << std::endl;
   std::cout << UklRown.pobierzWektor() << std::endl;
 
-  std::cout << "Metoda Cramera: " << std::endl << std::endl;
+  std::cout << "Metoda Cramera: " << std::endl << std::endl;  // rozwiazanie metoda cramera
   
   std::cout << "Rozwiazanie x = (x1, x2, x3): " << std::endl;
   wynik = UklRown.oblicz(cramer);
@@ -65,7 +68,7 @@ int main()
   std::cout << "Wektor bledu: Ax - b =  " << UklRown.pobierzMacierz()*wynik - UklRown.pobierzWektor() << std::endl;
   std::cout << "Dlugosc wektoru bledu: |Ax - b| = " << blad.dlugosc() << std::endl;
 
-  std::cout<< std::endl << "Metoda macierzy odwrotnej: " << std::endl << std::endl;
+  std::cout<< std::endl << "Metoda macierzy odwrotnej: " << std::endl << std::endl;  // rozwiazanie metoda macierzy odwrotnej
     
   wynik = UklRown.oblicz(odwrotna);
   std::cout << std::endl << wynik << std::endl << std::endl;

@@ -3,23 +3,27 @@
 #include <iomanip>
 #include <iostream>
 
+// Inicjalizacja pustej macierzy
 Macierz::Macierz(){
  for (int j = 0; j < ROZMIAR; j++)
     for (int i = 0; i < ROZMIAR; i++)
        this->tab[i][j] = 0;
 }
 
+// Inicjalizacja macierzy inna macierza
 Macierz::Macierz(const Macierz & macierz2){
   for (int i=0; i<ROZMIAR; i++)
   (*this)[i] = macierz2[i];
 }
 
+// INicjazlizacja macierzy wektorami
 Macierz::Macierz(Wektor wektor1, Wektor wektor2, Wektor wektor3){
   (*this)[0] = wektor1;
   (*this)[1] = wektor2;
   (*this)[2] = wektor3;
 }
 
+// Odwolanie sie do indexu macierzy
 const Wektor  & Macierz::operator[] (int index) const{
 
   if (index < 0 || index >= ROZMIAR) 
@@ -30,6 +34,7 @@ const Wektor  & Macierz::operator[] (int index) const{
   return this->tab[index];
 }
 
+// Odwolanie sie do indexu macierzy
 Wektor & Macierz::operator[] (int index){
 
   if (index < 0 || index >= ROZMIAR) 
@@ -40,6 +45,7 @@ Wektor & Macierz::operator[] (int index){
   return this->tab[index];
 }
 
+// Dodawanie macierzy
 Macierz Macierz::operator +(const Macierz & macierz) const{
   Macierz pomocnicza;
   for(int i =0; i< ROZMIAR; i++)
@@ -47,6 +53,7 @@ Macierz Macierz::operator +(const Macierz & macierz) const{
   return pomocnicza;
 }
 
+// Odejmowanie macierzy
 Macierz Macierz::operator -(const Macierz & macierz) const
 {
   Macierz pomocnicza;
@@ -57,6 +64,7 @@ Macierz Macierz::operator -(const Macierz & macierz) const
   return pomocnicza;
 }
 
+// Mnozenie macierzy i liczby
 Macierz Macierz::operator *(double a) const 
 {
   Macierz pomocnicza;
@@ -67,6 +75,7 @@ Macierz Macierz::operator *(double a) const
   return pomocnicza;
 }
 
+// Porownywanie macierzy (czy sa rowne)
 bool Macierz::operator == (const Macierz & Macierz2) const
 {
   for (int i = 0; i < ROZMIAR; i++)    
@@ -77,11 +86,13 @@ bool Macierz::operator == (const Macierz & Macierz2) const
   return true;
 }
 
+// Porownywanie macierzy (czy nie sa rowne)
 bool Macierz::operator != (const Macierz & Macierz2) const
 {
   return !(*this==Macierz2);
 }
-  
+
+// Transopnuje macierz
 Macierz Macierz::transponuj() const
 {
   Macierz wynikowa;
@@ -92,6 +103,7 @@ Macierz Macierz::transponuj() const
   return wynikowa;
 }
 
+// Oblicza dopelnienie macierzy
 double Macierz::dopelnienie(int x, int y) const{
   double pomoc;
   if(x< 0 || x >= ROZMIAR || y<0 || y >= ROZMIAR){
@@ -102,6 +114,7 @@ double Macierz::dopelnienie(int x, int y) const{
   return pomoc;
 }
 
+// Oblicza macierz odwrotna
 Macierz Macierz::odwroc() const{
   Macierz macierzpom;
   double wyznacznik=(*this).wyznacznik(sarrus);
@@ -115,6 +128,7 @@ Macierz Macierz::odwroc() const{
   return macierzpom.transponuj();
 }
 
+// Mnozenie macierzy i wektora
  Wektor Macierz::operator *(const Wektor & wektor) const
 {
   Wektor wynik;
@@ -128,12 +142,13 @@ Macierz Macierz::odwroc() const{
   return wynik;
 }
 
+// Mnozenie liczby rzeczywistej i macierzy (odwrotna kolejnosc)
 Macierz operator *(double a, const Macierz macierz)
 {
   return macierz*a;
 }
 
-
+// Obliczenie wyznacznika macierzy
 double Macierz::wyznacznik(metodaWyznacznika metoda) const{
 
   double pomoc=0;
@@ -155,7 +170,7 @@ double Macierz::wyznacznik(metodaWyznacznika metoda) const{
   
 }
 
-//Funkcje in/out
+// Wczytanie macierzy
 std::istream& operator >> (std::istream &strm, Macierz &macierz)
 {
   for (int i = 0; i < ROZMIAR; i++)
@@ -165,7 +180,7 @@ std::istream& operator >> (std::istream &strm, Macierz &macierz)
   return strm;
 }
 
-
+// Wypisanie macierzy
 std::ostream& operator << (std::ostream &strm, const Macierz &macierz)
 {
   for (int i = 0; i < ROZMIAR; i++)

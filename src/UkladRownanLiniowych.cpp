@@ -1,30 +1,36 @@
 #include "UkladRownanLiniowych.hh"
 #include <iomanip>
 
+// Inicjazlizacja ukladu rownan macierza i wektorem
 UkladRownanLiniowych::UkladRownanLiniowych(const Macierz & macierz2, const Wektor & wektor2)
 {
   this->macierz=macierz2;
   this->wektor=wektor2;
 }
 
+// Zwraca wektor ukladu rownan
 const Wektor & UkladRownanLiniowych::pobierzWektor() const
 {
   return wektor;
 }
 
+// Wczytuje wektor do ukladu rownan
 void UkladRownanLiniowych::ustawWektor(const Wektor & wektor2){
   this->wektor = wektor2;
 }
 
+// Zwraca macierz ukladu rownan 
 const Macierz & UkladRownanLiniowych::pobierzMacierz() const
 {
   return macierz;
 }
 
+// Wczytuje macierz do ukladu rownan
 void UkladRownanLiniowych::ustawMacierz(const Macierz & macierz2){
   this->macierz = macierz2;
 }
 
+// Rozwiazanie ukladu rownan
 Wektor UkladRownanLiniowych::oblicz(SposobLiczenia sposob) const{
   Macierz macierzpom(this->macierz);
   Wektor wynik;
@@ -59,6 +65,7 @@ Wektor UkladRownanLiniowych::oblicz(SposobLiczenia sposob) const{
   exit(0);
 }
 
+// Wczytanie ukladu rownan 
 std::istream & operator >> (std::istream &Strm, UkladRownanLiniowych &UklRown){
   Wektor pomocWektor;
   Macierz pomocMacierz;
@@ -70,6 +77,7 @@ std::istream & operator >> (std::istream &Strm, UkladRownanLiniowych &UklRown){
 
 }
 
+// Wyswietlenie ukladu rownan
 std::ostream & operator << (std::ostream &Strm, const UkladRownanLiniowych &UklRown){
 
   Macierz pomocnicza(UklRown.pobierzMacierz().transponuj());
